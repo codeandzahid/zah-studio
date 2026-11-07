@@ -5,3 +5,5 @@ frames/
 *.mp4
 *.wav
 __pycache__/
+videos/
+clips.txt

@@ -1,68 +1,77 @@
 # Zah Studio
 
-One repo with everything used to make the videos: ready prompts
-and a script writer. Clone it on any computer —
-laptop or cloud — and start making videos.
+Working software for making 60-second videos. One tool, one repo.
+Clone it on any computer — laptop or cloud — and start.
 
 ## What's inside
 
-| Folder | What it is |
+| File | What it is |
 |---|---|
-| `prompts/video-prompts.md` | Ready prompts for realistic 60-second videos, plus a blank template to make your own. |
+| `zah.py` | The tool. Makes video projects and joins clips into a 60-second video. |
+| `zah` | Short way to run the tool: `bash zah <command>`. |
+| `prompts/video-prompts.md` | Ready prompts for realistic 60-second videos, plus a blank template. |
 | `prompts/master-prompt-script-generation.txt` | A 17-section prompt that turns one topic into a high-retention YouTube script. |
-| `zah.sh` | Small helper: checks your tools and lists the prompts. |
 
-## Quick start
+## How to use it
 
-```bash
-git clone https://github.com/codeandzahid/zah-studio.git
-cd zah-studio
-bash zah.sh check     # makes sure ffmpeg is installed
-bash zah.sh prompts   # lists every prompt set in the repo
-```
-
-## Make a realistic 60-second video
-
-Every video is 6 clips of 10 seconds, chained together:
-
-1. Pick a prompt set from `prompts/video-prompts.md`
-   (jungle walk, or jungle property series Episode 1),
-   or write your own with the blank template in the same file.
-2. Make clip 1 from its prompt in your AI video tool.
-3. Make clips 2-6 the same way, each one continuing from the
-   previous clip's last frame (`resume_from_snapshot_id`).
-   Keep each prompt short — under ~60 words — or the tool rejects it.
-4. Join the 6 clips in order with ffmpeg:
+You need Python 3 and ffmpeg. Check first:
 
 ```bash
-ffmpeg -y -f concat -safe 0 -i clips.txt \
-  -c:v libx264 -pix_fmt yuv420p -crf 20 \
-  -c:a aac -b:a 128k -movflags +faststart my-video-60s.mp4
+bash zah check
 ```
 
-(`clips.txt` lists the 6 clip files, one `file 'clip1.mp4'` line each.)
+### 1. Start a new video
+
+```bash
+bash zah new jungle-house "a man buys jungle land and builds a wooden house"
+```
+
+This makes a folder `videos/jungle-house/` with a `prompts.md`
+file (6 clip prompts, already filled in) and an empty `clips/` folder.
+
+### 2. Make the clips
+
+Open `videos/jungle-house/prompts.md` and change the 6 prompts
+if you want. Then make 6 clips of 10 seconds with your AI video
+tool — one prompt per clip, each clip continuing from the last one.
+Put them in `videos/jungle-house/clips/` as `clip1.mp4` to `clip6.mp4`.
+
+### 3. Join them into one video
+
+```bash
+bash zah join jungle-house
+```
+
+You get `videos/jungle-house/jungle-house-60s.mp4` — 60 seconds,
+ready to watch and upload.
+
+## Other commands
+
+```bash
+bash zah prompts   # list every prompt set in the repo
+bash zah list      # list your video projects and how many clips each has
+bash zah check     # check ffmpeg is installed
+```
+
+## How a 60-second video works
+
+Every video is 6 clips of 10 seconds, chained together.
+Keep each prompt short — under ~60 words — or the tool rejects it.
+Describe the same person the same way in every clip (clothes,
+colors, backpack) so he stays the same. One action per clip.
+Natural sounds only — no music, no talking, no text on screen —
+unless the video needs a voice.
 
 ## Write a script
 
-Feed a topic to the master prompt:
-
-1. Open `prompts/master-prompt-script-generation.txt`.
-2. Give it your topic (for example: "dark psychology for success").
-3. It returns a full high-retention YouTube script in 17 sections.
-
-## Rules that were learned the hard way
-
-- Keep prompts SHORT. Long prompts fail.
-- Describe the same person the same way in every clip
-  (clothes, colors, backpack) so the character stays the same.
-- One action per clip. A new clip = the next small step of the story.
-- Natural sounds only — no music, no talking, no text on screen —
-  unless the video needs a voice.
-- The AI video tool makes at most 6 videos per request
-  (6 x 10s = 60s). A longer video needs a new request.
+Feed a topic to the master prompt in
+`prompts/master-prompt-script-generation.txt`.
+You give it a topic (for example: "dark psychology for success")
+and it writes a full high-retention YouTube script in 17 parts.
 
 ## Offline?
 
-The prompts, the script prompt, and the style guide are plain text —
-they work anywhere, no internet needed to read and use them.
-The AI video tool itself needs an internet connection to generate clips.
+The tool, the prompts, and the script prompt are plain files —
+they work anywhere, no internet needed. Joining clips needs only
+ffmpeg on your computer. The AI video tool itself needs an
+internet connection to make the clips.
