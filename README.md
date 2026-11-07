@@ -1,4 +1,4 @@
-# Video Studio
+# Zah Studio
 
 One repo with the prompts and guides used to make the videos.
 Clone it on any computer — laptop or cloud — and use it anywhere.
