@@ -7,8 +7,9 @@ Clone it on any computer — laptop or cloud — and start.
 
 | File | What it is |
 |---|---|
-| `zah.py` | The tool. Makes video projects and joins clips into a 60-second video. |
+| `zah.py` | The tool. Makes video projects, joins clips, and renders the Zack D.-style 3D video. |
 | `zah` | Short way to run the tool: `bash zah <command>`. |
+| `blender/zack-d/` | The Zack D.-style 3D scene: a money tree that grows, with gold coins. Blender only. |
 | `prompts/video-prompts.md` | Ready prompts for realistic 60-second videos, plus a blank template. |
 | `prompts/master-prompt-script-generation.txt` | A 17-section prompt that turns one topic into a high-retention YouTube script. |
 
@@ -44,6 +45,28 @@ bash zah join my-first-video
 
 You get `videos/my-first-video/my-first-video-60s.mp4` — 60 seconds,
 ready to watch and upload.
+
+## Make a Zack D.-style 3D video
+
+A Blender scene that makes a video like Zack D. Films: a money
+tree grows, gold coins appear on its branches one by one, a man
+stands watching, and the camera slowly moves around the tree.
+The finance idea, shown in 3D, not flat bars.
+
+```bash
+bash zah zackd         # 10 second version (240 frames)
+bash zah zackd 1440    # 60 second version
+```
+
+You need Blender (free, blender.org) and ffmpeg. The video comes
+out in `blender/zack-d/` as `money-tree-10s.mp4` or
+`money-tree-60s.mp4`.
+
+Honest limit: this is the simple 3D version. Zack D. Films uses
+a team of 50+ people, Cascadeur for character movement, EmberGen
+for smoke and fire, and After Effects to finish. This scene is
+Blender only, so the man is simple and the tree is low-poly. It
+looks like his idea, not his full quality.
 
 ## Other commands
 

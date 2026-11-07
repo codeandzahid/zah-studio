@@ -10,6 +10,9 @@ Commands:
     python3 zah.py list               list your video projects
     python3 zah.py new <name> <idea>  start a new video project
     python3 zah.py join <name>        join the 6 clips into a 60s video
+    python3 zah.py zackd [frames]     render a Zack D.-style 3D video
+                                     (money tree, default 240 frames = 10s;
+                                      use 1440 for a full 60s video)
 
 How a video is made:
     1. `new` makes a project folder with a prompts file.
@@ -214,12 +217,37 @@ def cmd_join(args):
     return 0
 
 
+def cmd_zackd(args):
+    """Render the Zack D.-style 3D money tree video with Blender."""
+    frames = args[0] if args else "240"
+    if not frames.isdigit() or int(frames) <= 0:
+        return fail("frames must be a positive number, e.g. 240 or 1440")
+    zdir = ROOT / "blender" / "zack-d"
+    if not (zdir / "build_money_tree.py").exists():
+        return fail("blender/zack-d/ is missing from the repo")
+    env = dict(os.environ)
+    env["DEMO_FRAMES"] = frames
+    seconds = int(frames) // 24
+    print(f"Rendering the money tree scene "
+          f"({frames} frames = about {seconds} seconds)...")
+    proc = subprocess.run(["bash", str(zdir / "render.sh")], env=env)
+    if proc.returncode != 0:
+        return fail("render failed — check render-chunk*.log in "
+                    "blender/zack-d/")
+    proc = subprocess.run(["bash", str(zdir / "assemble.sh")], env=env)
+    if proc.returncode != 0:
+        return fail("assemble failed")
+    print(f"Done: {zdir / ('money-tree-%ss.mp4' % seconds)}")
+    return 0
+
+
 COMMANDS = {
     "check": (cmd_check, "check ffmpeg is installed"),
     "prompts": (cmd_prompts, "list the prompt sets in the repo"),
     "list": (cmd_list, "list your video projects"),
     "new": (cmd_new, "start a new video project"),
     "join": (cmd_join, "join the 6 clips into a 60s video"),
+    "zackd": (cmd_zackd, "render a Zack D.-style 3D money tree video"),
 }
 
 
