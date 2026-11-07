@@ -1,7 +1,7 @@
 # Zah Studio
 
-One repo with everything used to make the videos: ready prompts,
-a script writer, and a style guide. Clone it on any computer —
+One repo with everything used to make the videos: ready prompts
+and a script writer. Clone it on any computer —
 laptop or cloud — and start making videos.
 
 ## What's inside
@@ -10,7 +10,6 @@ laptop or cloud — and start making videos.
 |---|---|
 | `prompts/video-prompts.md` | Ready prompts for realistic 60-second videos, plus a blank template to make your own. |
 | `prompts/master-prompt-script-generation.txt` | A 17-section prompt that turns one topic into a high-retention YouTube script. |
-| `docs/zack-d-style.md` | The Zack D. Films 3D-simulation style guide. |
 | `zah.sh` | Small helper: checks your tools and lists the prompts. |
 
 ## Quick start
@@ -50,18 +49,6 @@ Feed a topic to the master prompt:
 1. Open `prompts/master-prompt-script-generation.txt`.
 2. Give it your topic (for example: "dark psychology for success").
 3. It returns a full high-retention YouTube script in 17 sections.
-
-## Make a finance video in the Zack D. Films style
-
-Read `docs/zack-d-style.md` first. The short version:
-
-- Show the idea in smooth 3D simulation, never flat bars.
-- One clear visual metaphor per video (a growing money tree,
-  an emptying grocery cart, a snowball of coins).
-- Numbers on screen must be clean overlays added in editing,
-  never generated inside the animation — AI garbles digits.
-- The main tool is Blender, with After Effects for finishing,
-  Cascadeur for character movement, and EmberGen for smoke and fire.
 
 ## Rules that were learned the hard way
 
