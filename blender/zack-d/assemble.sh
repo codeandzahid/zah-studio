@@ -8,7 +8,8 @@ FRAMES="${DEMO_FRAMES:-240}"
 DUR=$(( FRAMES / 24 ))
 ffmpeg -y -v error -framerate 24 -i frames/frame_%04d.png \
   -f lavfi -i "anoisesrc=color=brown:duration=${DUR}:amplitude=0.15" \
-  -filter:a "lowpass=f=300,volume=0.12" -shortest \
+  -filter_complex "[0:v]scale=960:540:flags=lanczos,unsharp=5:5:0.6:5:5:0.0[v];[1:a]lowpass=f=300,volume=0.12[a]" \
+  -map "[v]" -map "[a]" -shortest \
   -c:v libx264 -pix_fmt yuv420p -crf 20 \
   -c:a aac -b:a 128k -movflags +faststart \
   "money-tree-${DUR}s.mp4"

@@ -10,6 +10,7 @@ Clone it on any computer — laptop or cloud — and start.
 | `zah.py` | The tool. Makes video projects, joins clips, and renders the Zack D.-style 3D video. |
 | `zah` | Short way to run the tool: `bash zah <command>`. |
 | `blender/zack-d/` | The Zack D.-style 3D scene: a money tree that grows, with gold coins. Blender only. |
+| `blender/theseus/` | The Ship of Theseus video: a man loses his skin, muscle, skeleton, then comes back. Blender only. |
 | `prompts/video-prompts.md` | Ready prompts for realistic 60-second videos, plus a blank template. |
 | `prompts/master-prompt-script-generation.txt` | A 17-section prompt that turns one topic into a high-retention YouTube script. |
 
@@ -61,6 +62,23 @@ bash zah zackd 1440    # 60 second version
 You need Blender (free, blender.org) and ffmpeg. The video comes
 out in `blender/zack-d/` as `money-tree-10s.mp4` or
 `money-tree-60s.mp4`.
+
+## Make the Ship of Theseus video
+
+A Blender scene that remakes the Zack D. Films Short "The Ship Of
+Theseus Paradox": a man on a bright blue background with a grid
+floor. His layers come off one by one — skin, then muscle, then
+skeleton — and at the end he is put back together. Big white word
+captions at the bottom, and a voice tells the story.
+
+```bash
+bash zah theseus       # 22 second version (528 frames)
+```
+
+You need Blender and ffmpeg. The video comes out in
+`blender/theseus/` as `theseus-22s.mp4`. The voiceover is made
+with the TTS tool and saved as `narration.mp3` in the same folder;
+if it is missing, the video gets a soft sound bed instead.
 
 Honest limit: this is the simple 3D version. Zack D. Films uses
 a team of 50+ people, Cascadeur for character movement, EmberGen

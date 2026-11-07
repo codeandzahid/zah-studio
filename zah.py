@@ -13,6 +13,9 @@ Commands:
     python3 zah.py zackd [frames]     render a Zack D.-style 3D video
                                      (money tree, default 240 frames = 10s;
                                       use 1440 for a full 60s video)
+    python3 zah.py theseus [frames]   render the Ship of Theseus video
+                                     (man loses skin, muscle, skeleton,
+                                      then comes back; default 528 = 22s)
 
 How a video is made:
     1. `new` makes a project folder with a prompts file.
@@ -241,6 +244,29 @@ def cmd_zackd(args):
     return 0
 
 
+def cmd_theseus(args):
+    """Render the Ship of Theseus video with Blender."""
+    frames = args[0] if args else "528"
+    if not frames.isdigit() or int(frames) <= 0:
+        return fail("frames must be a positive number, e.g. 528")
+    tdir = ROOT / "blender" / "theseus"
+    if not (tdir / "build_theseus.py").exists():
+        return fail("blender/theseus/ is missing from the repo")
+    env = dict(os.environ)
+    env["DEMO_FRAMES"] = frames
+    seconds = int(frames) // 24
+    print(f"Rendering the Ship of Theseus scene "
+          f"({frames} frames = about {seconds} seconds)...")
+    proc = subprocess.run(["bash", str(tdir / "render.sh")], env=env)
+    if proc.returncode != 0:
+        return fail("render failed — check /tmp/theseus-chunk*.log")
+    proc = subprocess.run(["bash", str(tdir / "assemble.sh")], env=env)
+    if proc.returncode != 0:
+        return fail("assemble failed")
+    print(f"Done: {tdir / ('theseus-%ss.mp4' % seconds)}")
+    return 0
+
+
 COMMANDS = {
     "check": (cmd_check, "check ffmpeg is installed"),
     "prompts": (cmd_prompts, "list the prompt sets in the repo"),
@@ -248,6 +274,7 @@ COMMANDS = {
     "new": (cmd_new, "start a new video project"),
     "join": (cmd_join, "join the 6 clips into a 60s video"),
     "zackd": (cmd_zackd, "render a Zack D.-style 3D money tree video"),
+    "theseus": (cmd_theseus, "render the Ship of Theseus video"),
 }
 
 
