@@ -217,6 +217,9 @@ scene.frame_start = FRAME_START
 scene.frame_end = FRAME_END
 scene.render.image_settings.file_format = 'PNG'
 scene.render.filepath = os.path.join(OUT_DIR, "frame_")
+# Skip frames that are already rendered, so re-running resumes
+# instead of starting over (and `zah theseus` is fast the 2nd time).
+scene.render.use_overwrite = False
 
 # Soft studio light from the FRONT (camera side), so the skin
 # reads warm, not blue. Both lights aim at the man.

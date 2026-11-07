@@ -153,6 +153,9 @@ scene.frame_start = FRAME_START
 scene.frame_end = FRAME_END
 scene.render.image_settings.file_format = 'PNG'
 scene.render.filepath = os.path.join(OUT_DIR, "frame_")
+# Skip frames that are already rendered, so re-running resumes
+# instead of starting over.
+scene.render.use_overwrite = False
 
 # Sun + soft fill light (Eevee uses real lights).
 bpy.ops.object.light_add(type='SUN', location=(5, -5, 10))

@@ -99,6 +99,11 @@ def cmd_check(_args):
     ok, out = run(["ffprobe", "-version"])
     print("ffprobe: " + ("OK" if ok else "MISSING (duration check skipped)"))
     ok, out = run(["blender", "--version"])
+    if not ok:
+        # Blender lives in the Zah Studio folder itself; find it there.
+        local = ROOT / "blender" / "blender-5.2.3-linux-x64" / "blender"
+        if local.exists():
+            ok, out = run([str(local), "--version"])
     if ok:
         print("blender: OK (" + out.splitlines()[0] + ")")
     else:
