@@ -23,26 +23,26 @@ bash zah check
 ### 1. Start a new video
 
 ```bash
-bash zah new jungle-house "a man buys jungle land and builds a wooden house"
+bash zah new my-first-video "a man walks through the city"
 ```
 
-This makes a folder `videos/jungle-house/` with a `prompts.md`
+This makes a folder `videos/my-first-video/` with a `prompts.md`
 file (6 clip prompts, already filled in) and an empty `clips/` folder.
 
 ### 2. Make the clips
 
-Open `videos/jungle-house/prompts.md` and change the 6 prompts
+Open `videos/my-first-video/prompts.md` and change the 6 prompts
 if you want. Then make 6 clips of 10 seconds with your AI video
 tool — one prompt per clip, each clip continuing from the last one.
-Put them in `videos/jungle-house/clips/` as `clip1.mp4` to `clip6.mp4`.
+Put them in `videos/my-first-video/clips/` as `clip1.mp4` to `clip6.mp4`.
 
 ### 3. Join them into one video
 
 ```bash
-bash zah join jungle-house
+bash zah join my-first-video
 ```
 
-You get `videos/jungle-house/jungle-house-60s.mp4` — 60 seconds,
+You get `videos/my-first-video/my-first-video-60s.mp4` — 60 seconds,
 ready to watch and upload.
 
 ## Other commands

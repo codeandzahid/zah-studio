@@ -137,8 +137,8 @@ def cmd_list(_args):
 def cmd_new(args):
     if len(args) < 2:
         return fail("usage: python3 zah.py new <name> <idea>\n"
-                    "example: python3 zah.py new jungle-house "
-                    "\"a man buys jungle land and builds a wooden house\"")
+                    "example: python3 zah.py new my-first-video "
+                    "\"a man walks through the city\"")
     name = args[0]
     idea = " ".join(args[1:])
     if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]*", name):

@@ -1,4 +1,4 @@
 #!/bin/sh
 # Zah Studio launcher: run the tool with `bash zah <command>`.
-# Example: bash zah new jungle-house "a man buys jungle land"
+# Example: bash zah new my-first-video "a man walks through the city"
 exec python3 "$(dirname "$0")/zah.py" "$@"
